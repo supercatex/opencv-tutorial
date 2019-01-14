@@ -4,14 +4,16 @@ import cv2
 import webbrowser
 import numpy as np
 import math
+from tkinter import simpledialog
 
-
+   
 class OpenCVLearningTool:
     
     def __init__(self):
         self.window = tk.Tk()
-        self.window.geometry("640x260")
-        self.window.title("OpenCV Learning Tool")
+        self.window.geometry("650x728")
+        self.window.title("OpenCV Learning Tool v0.1")
+        self.window.iconbitmap(r'icon.ico')
         self.frame = tk.Frame(self.window)
         self.frame.pack()
         self.frame.focus_set()
@@ -23,9 +25,8 @@ class OpenCVLearningTool:
         self.original.pack(side=tk.LEFT)
         self.output = tk.Label(self.frame)
         self.output.pack(side=tk.RIGHT)
-        self.link = tk.Label(self.window, text="Github", fg="blue", cursor="hand2")
-        self.link.pack(side=tk.BOTTOM)
-        self.link.bind("<Button-1>", self.onclick_github)
+        self.code = tk.Label(self.window)
+        self.code.pack(side=tk.BOTTOM)
         
         self.menubar = tk.Menu(self.window)
         # menu1
@@ -74,6 +75,10 @@ class OpenCVLearningTool:
         self.window.config(menu=self.menubar)
     
     def run(self):
+        answer = simpledialog.askstring("Question", "Who is supercatex?", parent=self.window)
+        if answer != 'Kinda':
+            quit()
+        
         self.cap = cv2.VideoCapture(0)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
@@ -119,7 +124,7 @@ class OpenCVLearningTool:
     def onclick_menu3_2(self): self.key = 'dilate'
     def onclick_menu3_3(self): self.key = 'morph_open'
     def onclick_menu3_4(self): self.key = 'morph_close'
-    def onclick_menu3_5(self): self.key = 'morph_granient'
+    def onclick_menu3_5(self): self.key = 'morph_gradient'
     def onclick_menu3_6(self): self.key = 'morph_tophat'
     def onclick_menu3_7(self): self.key = 'morph_blackhat'
     
@@ -134,6 +139,13 @@ class OpenCVLearningTool:
     def onclick_menu5_2(self): self.key = 'rect_length_detect'
     
     def filter(self, image):
+        try:
+            img = ImageTk.PhotoImage(Image.open("img_" + self.key + ".JPG"))
+            self.code.config(image=img)
+            self.code.image = img
+        except Exception as e:
+            print(e)
+            
         if self.key == '':
             return cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         elif self.key == 'gray':
@@ -186,7 +198,7 @@ class OpenCVLearningTool:
         elif self.key == 'morph_close':
             kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
             return cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
-        elif self.key == 'morph_granient':
+        elif self.key == 'morph_gradient':
             kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
             return cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
         elif self.key == 'morph_tophat':
