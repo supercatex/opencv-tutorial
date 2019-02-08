@@ -18,13 +18,10 @@ im = cv2.imread("../rsrc/1.jpg", cv2.IMREAD_UNCHANGED)
 Image size:
 --- h: image height
 --- w: image width
---- c: image channel
-        4 for BGR-A
-        3 for BGR
-        1 for Gray
 '''
-h, w, c = im.shape
-print("height: %d, width: %d, channel: %d" % (h, w, c))
+h = im.shape[0]
+w = im.shape[1]
+print("height: %d, width: %d" % (h, w))
 
 '''
 3. Get image channel value.
