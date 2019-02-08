@@ -11,7 +11,7 @@ im = cv2.imread("../rsrc/1.jpg", cv2.IMREAD_COLOR)
 
 im[ from_y : to_y, from_x : to_x ]
 --- h: 380 - 110 = 270
---- w: 480 - 210 = 270 
+--- w: 480 - 210 = 270
 '''
 cropped_img = im[110:380, 210:480]
 
