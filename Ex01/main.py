@@ -10,7 +10,7 @@ cv2.imread(filename, channel)
         cv2.IMREAD_COLOR        BGR
         cv2.IMREAD_GRAYSCALE    Gray
 '''
-im = cv2.imread("../rsrc/1.jpg", cv2.IMREAD_UNCHANGED)
+im = cv2.imread("../rsrc/2.jpg", cv2.IMREAD_UNCHANGED)
 
 '''
 2. Get image shape.
